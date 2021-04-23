@@ -1,10 +1,11 @@
 # Grupo 4 - Lectura de Temperatura
 ### Integrantes
-- Fernando Cuevas
-- Takashi Honge
 - Silvio Aguilar 
-- Augusto Ayala 
-- 
+- Augusto Ayala
+- Fernando Cuevas
+- Marcelo Frutos
+- Takashi Honge 
+
 ### Lectura de temperatura
 - Login 
 - Formulario de carga de funcionarios
