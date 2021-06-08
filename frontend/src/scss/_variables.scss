@@ -1,0 +1,52 @@
+// Variable overrides
+@font-face {
+  font-family: "GTWThin";
+  src: url("../assets/GTWalsheimPro-Thin.eot"); /* IE9 Compat Modes */
+  src:
+    /* IE6-IE8 */ url("../assets/GTWalsheimPro-Thin.woff2")
+      format("woff2"),
+    /* Super Modern Browsers */ url("../assets/GTWalsheimPro-Thin.woff")
+      format("woff"),
+    /* Pretty Modern Browsers */ url("../assets/GTWalsheimPro-Thin.ttf")
+      format("truetype"); /* Safari, Android, iOS */
+}
+@font-face {
+  font-family: "GTWRegular";
+
+  src:
+    /* Pretty Modern Browsers */ url("../assets/Montserrat-Regular.ttf")
+    format("truetype"); /* Safari, Android, iOS */
+}
+$theme-colors: (
+  "primary": rgb(56, 26, 82, 0.85),
+  "secondary": #dbebfb,
+);
+$sidebar-dark-bg: #381a52;
+$text-color: red;
+$font-family-base: GTWRegular !important;
+$body-color: #313949;
+.badge-secondary {
+  border: 2px solid #46a0eb;
+}
+.form-control {
+  color: #313949 !important;
+}
+
+.c-main {
+  background-color: #e6e7e8;
+  background-size: 50px 50px;
+}
+.c-sidebar .c-sidebar-nav-link:hover:hover,
+.c-sidebar
+  .c-sidebar-minimized
+  .c-sidebar-nav-item
+  .c-sidebar-nav-link:hover:hover,
+.c-sidebar .c-sidebar-nav-dropdown-toggle:hover:hover {
+  @media (hover: hover), (-ms-high-contrast: none) {
+    &:hover {
+      background: #4c516f;
+    }
+  }
+}
+// CoreUI and its default variables
+@import "../../node_modules/@coreui/coreui/scss/coreui";

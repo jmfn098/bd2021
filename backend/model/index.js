@@ -1,7 +1,7 @@
 const dbConfig = require("../config");
 
 const Sequelize = require("sequelize");
-const { defaultsDeep } = require("lodash");
+
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
   dialect: dbConfig.dialect,
