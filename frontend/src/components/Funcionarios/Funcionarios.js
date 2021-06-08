@@ -83,7 +83,7 @@ const Funcionarios = () => {
     <div>
       <CCard>
         <CCardHeader className="d-flex align-items-center justify-content-between">
-          <div>Funcionarios</div>
+          <div >Funcionarios</div>
           <div>
             <div>
               <CButton

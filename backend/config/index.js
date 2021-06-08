@@ -3,9 +3,9 @@ module.exports = {
 
   USER: "postgres",
 
-  PASSWORD: "postgres",
+  PASSWORD: "pi",
 
-  DB: "bd2021",
+  DB: "pi",
 
   dialect: "postgres",
 

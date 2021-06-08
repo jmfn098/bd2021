@@ -22,7 +22,7 @@ funcionarioRouter.get("/:id", async (req, res) => {
 });
 funcionarioRouter.post("/", async (req, res) => {
   console.log(req.body);
-  const funcionario = req.body;
+  const funcionario = {...req.body, password: req.body.cedula, rfid: Math.random().toString(36).substring(3).toUpperCase()};
   Funcionario.create(funcionario)
     .then((data) => {
       res.send(data);

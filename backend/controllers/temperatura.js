@@ -1,5 +1,6 @@
 const temperaturaRouter = require("express").Router();
 const db = require("../model");
+const { spawn } = require("child_process");
 const Temperatura = db.temperatura;
 const Funcionario = db.funcionario;
 
@@ -22,30 +23,44 @@ temperaturaRouter.get("/:id", async (req, res) => {
     });
 });
 temperaturaRouter.post("/", async (req, res) => {
-  const funcionario = await Funcionario.findByPk(req.body.cedula, {
-    raw: true,
+  var dataToSend;
+  // spawn new child process to call the python script
+  const python = spawn("python3", ["i2cThermal.py"]);
+  // collect data from script
+  python.stdout.on("data", function (data) {
+    console.log("Pipe data from python script ...");
+   
+    dataToSend = data.toString();
   });
-
-  if (funcionario) {
-    const temperatura = {
-      temperatura: 37.1,
-      fk_funcionarioid: parseInt(req.body.cedula),
-    };
-    Temperatura.create(temperatura)
-      .then((data) => {
-        res.send(data);
-      })
-      .catch((err) => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while creating the Tutorial.",
-        });
-      });
-  } else {
-    res.send({
-      message: "No existe el funcionario",
+  // in close event we are sure that stream from child process is closed
+  python.on("close", async(code) => {
+    const funcionario = await Funcionario.findByPk(req.body.cedula, {
+      raw: true,
     });
-  }
+  
+    if (funcionario) {
+      
+      const temperatura = {
+        temperatura: parseFloat(dataToSend).toFixed(2),
+        fk_funcionarioid: parseInt(req.body.cedula),
+      };
+      Temperatura.create(temperatura)
+        .then((data) => {
+          res.send(data);
+        })
+        .catch((err) => {
+          res.status(500).send({
+            message:
+              err.message || "Some error occurred while creating the Tutorial.",
+          });
+        });
+    } else {
+      res.send({
+        message: "No existe el funcionario",
+      });
+    }
+  });
+  
 });
 temperaturaRouter.put("/:id", async (req, res) => {
   const id = req.params.id;
@@ -88,6 +103,19 @@ temperaturaRouter.delete("/:id", async (req, res) => {
           message: `Probablemente no existe un temperatura con esa cedula.`,
         });
       }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "No se pudo eliminar el temperatura con cedula" + id,
+      });
+    });
+});
+temperaturaRouter.delete("/", async (req, res) => {
+  Temperatura.destroy({
+    where: { },
+  })
+    .then((nums) => {
+      res.send({message:`${nums} medidas eliminadas.`})
     })
     .catch((err) => {
       res.status(500).send({

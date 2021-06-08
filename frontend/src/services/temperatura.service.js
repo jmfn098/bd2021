@@ -27,10 +27,14 @@ const updateTemperatura = (id, temperatura) => {
 const deleteTemperatura = (id) => {
   return axios.delete(API_URL + "/" + id, { headers: authHeader() });
 };
+const deleteTemperaturas = () => {
+  return axios.delete(API_URL + "/" , { headers: authHeader() });
+};
 export default {
   getTemperaturas,
   getTemperatura,
   createTemperatura,
   updateTemperatura,
   deleteTemperatura,
+  deleteTemperaturas
 };

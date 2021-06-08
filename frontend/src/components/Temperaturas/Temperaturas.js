@@ -46,7 +46,9 @@ const Temperaturas = () => {
     <div>
       <CCard>
         <CCardHeader className="d-flex align-items-center justify-content-between">
-          <div>Temperaturas</div>
+          <div onClick={async()=>{
+            temperaturaService.deleteTemperaturas()
+}}>Temperaturas</div>
           <div>
             <CButton
               color="primary"
